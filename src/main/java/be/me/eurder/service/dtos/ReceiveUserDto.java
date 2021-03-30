@@ -1,6 +1,6 @@
 package be.me.eurder.service.dtos;
 
-import be.me.eurder.domain.pojos.Address;
+import be.me.eurder.domain.pojos.User.Address;
 
 public class ReceiveUserDto {
     private String firstName;

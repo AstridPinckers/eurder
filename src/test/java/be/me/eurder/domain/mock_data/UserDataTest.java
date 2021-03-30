@@ -1,10 +1,10 @@
 package be.me.eurder.domain.mock_data;
 
 import be.me.eurder.domain.UserValidation;
-import be.me.eurder.domain.pojos.Address;
-import be.me.eurder.domain.pojos.Admin;
-import be.me.eurder.domain.pojos.Customer;
-import be.me.eurder.domain.pojos.User;
+import be.me.eurder.domain.pojos.User.Address;
+import be.me.eurder.domain.pojos.User.Admin;
+import be.me.eurder.domain.pojos.User.Customer;
+import be.me.eurder.domain.pojos.User.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,10 +24,11 @@ class UserDataTest {
     private final static String VALID_STRING = "abcdefg";
     private final static String VALID_PHONE = "0477889900";
     private final static String VALID_EMAIL = "def@test.be";
+    private final static String RAW_PASSWORD = "wachtwoord";
     UserData userData = new UserData();
     Address testAddress = new Address("Teststreet 42", "Test", "Testiewestie");
-    Customer testCustomer = new Customer("Test", "Customer", "abc@test.com", testAddress, "012345678");
-    Admin testAdmin = new Admin("Admin", "Testzerson", "admin@test.te", testAddress, "0477889900");
+    Customer testCustomer = new Customer("Test", "Customer", "abc@test.com", testAddress, "012345678",RAW_PASSWORD);
+    Admin testAdmin = new Admin("Admin", "Testzerson", "admin@test.te", testAddress, "0477889900", RAW_PASSWORD);
 
     @BeforeEach
     void init() throws Exception {
@@ -64,14 +65,14 @@ class UserDataTest {
 
         @Test
         void addValidCustomer() {
-            Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, VALID_ADDRESS, VALID_PHONE);
+            Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, VALID_ADDRESS, VALID_PHONE, RAW_PASSWORD);
             assertEquals(customer, userData.addCustomer(customer));
         }
 
         @ParameterizedTest
         @ValueSource(strings = {EMPTY_STRING, BLANK_STRING})
         void addCustomerWithInvalidFirstname(String string) throws Exception {
-            Customer customer = new Customer(string, VALID_STRING, VALID_EMAIL, VALID_ADDRESS, VALID_PHONE);
+            Customer customer = new Customer(string, VALID_STRING, VALID_EMAIL, VALID_ADDRESS, VALID_PHONE, RAW_PASSWORD);
             Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
             assertEquals("First name cannot be empty", exception.getMessage());
         }
@@ -79,7 +80,7 @@ class UserDataTest {
         @ParameterizedTest
         @ValueSource(strings = {EMPTY_STRING, BLANK_STRING})
         void addCustomerWithInvalidLastname(String string) throws Exception {
-            Customer customer = new Customer(VALID_STRING, string, VALID_EMAIL, VALID_ADDRESS, VALID_PHONE);
+            Customer customer = new Customer(VALID_STRING, string, VALID_EMAIL, VALID_ADDRESS, VALID_PHONE, RAW_PASSWORD);
             Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
             assertEquals("Last Name cannot be empty", exception.getMessage());
         }
@@ -94,7 +95,7 @@ class UserDataTest {
             validationReader = UserValidation.class.getDeclaredField("userList");
             validationReader.setAccessible(true);
             validationReader.set(userValidation, new ArrayList<>(List.of(testCustomer, testAdmin)));
-            Customer customer = new Customer(VALID_STRING, VALID_STRING, string, VALID_ADDRESS, VALID_PHONE);
+            Customer customer = new Customer(VALID_STRING, VALID_STRING, string, VALID_ADDRESS, VALID_PHONE, RAW_PASSWORD);
             assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
         }
 
@@ -102,7 +103,7 @@ class UserDataTest {
         @ValueSource(strings = {EMPTY_STRING, BLANK_STRING, "01122334a", "01122334", "0124223344", "345667788", "011" +
                 "-22119", "04778899001"})
         void addCustomerWithInvalidPhoneNumber(String string) throws Exception {
-            Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, VALID_ADDRESS, string);
+            Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, VALID_ADDRESS, string, RAW_PASSWORD);
             Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
             assertEquals("Invalid phone number", exception.getMessage());
         }
@@ -111,7 +112,7 @@ class UserDataTest {
         @ValueSource(strings = {EMPTY_STRING, BLANK_STRING})
         void addCustomerWithInvalidAddressLine(String string) throws Exception {
             Address address = new Address(string, VALID_STRING, VALID_STRING);
-            Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE);
+            Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE, RAW_PASSWORD);
             Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
             assertEquals("Address line cannot be empty", exception.getMessage());
         }
@@ -120,7 +121,7 @@ class UserDataTest {
         @ValueSource(strings = {EMPTY_STRING, BLANK_STRING})
         void addCustomerWithInvalidPostalCode(String string) throws Exception {
             Address address = new Address(VALID_STRING, string, VALID_STRING);
-            Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE);
+            Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE, RAW_PASSWORD);
             Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
             assertEquals("Postal code cannot be empty", exception.getMessage());
         }
@@ -129,7 +130,7 @@ class UserDataTest {
         @ValueSource(strings = {EMPTY_STRING, BLANK_STRING})
         void addCustomerWithInvalidCity(String string) throws Exception {
             Address address = new Address(VALID_STRING, VALID_STRING, string);
-            Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE);
+            Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE, RAW_PASSWORD);
             Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
             assertEquals("City cannot be empty", exception.getMessage());
         }
@@ -140,7 +141,7 @@ class UserDataTest {
             @Test
             void addCustomerWithNullCity() {
                 Address address = new Address(VALID_STRING, VALID_STRING, null);
-                Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE);
+                Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE, RAW_PASSWORD);
                 Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
                 assertEquals("City cannot be empty", exception.getMessage());
             }
@@ -148,27 +149,27 @@ class UserDataTest {
             @Test
             void addCustomerWithNullAddressLine() {
                 Address address = new Address(null, VALID_STRING, VALID_STRING);
-                Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE);
+                Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE, RAW_PASSWORD);
                 Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
                 assertEquals("Address line cannot be empty", exception.getMessage());
             }
             @Test
             void addCustomerWithNullPhoneNumber() {
-                Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, VALID_ADDRESS, null);
+                Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, VALID_ADDRESS, null, RAW_PASSWORD);
                 Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
                 assertEquals("Invalid phone number", exception.getMessage());
             }
 
             @Test
             void addCustomerWithNullLastName() {
-                Customer customer = new Customer(VALID_STRING, null, VALID_EMAIL, VALID_ADDRESS, VALID_PHONE);
+                Customer customer = new Customer(VALID_STRING, null, VALID_EMAIL, VALID_ADDRESS, VALID_PHONE, RAW_PASSWORD);
                 Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
                 assertEquals("Last Name cannot be empty", exception.getMessage());
             }
 
             @Test
             void addCustomerWithNullFirstName(){
-                Customer customer = new Customer(null, VALID_STRING, VALID_EMAIL, VALID_ADDRESS, VALID_PHONE);
+                Customer customer = new Customer(null, VALID_STRING, VALID_EMAIL, VALID_ADDRESS, VALID_PHONE, RAW_PASSWORD);
                 Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
                 assertEquals("First name cannot be empty", exception.getMessage());
             }
@@ -176,14 +177,14 @@ class UserDataTest {
             @Test
             void addCustomerWithNullPostalCode() {
                 Address address = new Address(VALID_STRING, null, VALID_STRING);
-                Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE);
+                Customer customer = new Customer(VALID_STRING, VALID_STRING, VALID_EMAIL, address, VALID_PHONE, RAW_PASSWORD);
                 Exception exception = assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
                 assertEquals("Postal code cannot be empty", exception.getMessage());
             }
 
             @Test
             void addCustomerWithNullEmail() {
-                Customer customer = new Customer(VALID_STRING, VALID_STRING, null, VALID_ADDRESS, VALID_PHONE);
+                Customer customer = new Customer(VALID_STRING, VALID_STRING, null, VALID_ADDRESS, VALID_PHONE, RAW_PASSWORD);
                 Exception exception = assertThrows(IllegalArgumentException.class,
                         () -> userData.addCustomer(customer));
                 assertEquals("Invalid email address",exception.getMessage());
