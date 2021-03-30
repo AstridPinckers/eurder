@@ -10,4 +10,16 @@ public class Address {
         this.postalCode = postalCode;
         this.city = city;
     }
+
+    public String getAddressLine() {
+        return addressLine;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
 }
