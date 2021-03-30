@@ -7,7 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+
 public class UserValidation {
+
+    private static List<User> userList = new UserData().getUserList();
 
     static Logger logger = LoggerFactory.getLogger(UserValidation.class);
 
@@ -58,7 +61,6 @@ public class UserValidation {
     }
 
     public static void assertEmailIsUnique(String email){
-        List<User> userList = new UserData().getUserList();
         if (userList.stream().map(User::getEmail).filter(s -> s.equals(email)).count() != 0) {
             logger.error("Email address already exists.");
             throw new IllegalArgumentException("Email address already exists");

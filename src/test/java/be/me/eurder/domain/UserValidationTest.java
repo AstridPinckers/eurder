@@ -1,12 +1,36 @@
 package be.me.eurder.domain;
 
+import be.me.eurder.domain.mock_data.UserData;
+import be.me.eurder.domain.pojos.Address;
+import be.me.eurder.domain.pojos.Admin;
+import be.me.eurder.domain.pojos.Customer;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserValidationTest {
+
+
+
+    @BeforeEach
+    void init() throws Exception {
+        UserValidation userValidation = new UserValidation();
+        Field reader;
+        reader = UserValidation.class.getDeclaredField("userList");
+        reader.setAccessible(true);
+        Address address = new Address("Teststreet 42", "Test","Testiewestie");
+        Customer customer = new Customer("Test","Customer","abc@test.com",address,"012345678");
+        Admin admin = new Admin("Admin","Testzerson","admin@test.te",address,"0477889900");
+        reader.set(userValidation, new ArrayList<>(List.of(customer,admin)));
+    }
+
 
     @ParameterizedTest
     @ValueSource(strings = {"user@domain.com", "user@domain.co.in", "user.name@domain.com", "user_name@domain.com",
@@ -47,7 +71,7 @@ class UserValidationTest {
 
     @Test
     void assertEmailIsUnique_givenEmailThatAlreadyExists_ThenThrowsException(){
-        assertThrows(IllegalArgumentException.class, () -> UserValidation.assertEmailIsUnique("admin.test@testily.co.uk"));
+        assertThrows(IllegalArgumentException.class, () -> UserValidation.assertEmailIsUnique("admin@test.te"));
     }
 
 }
