@@ -1,4 +1,4 @@
-package be.me.eurder;
+package be.me.eurder.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
