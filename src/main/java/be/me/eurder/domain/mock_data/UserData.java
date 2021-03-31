@@ -5,6 +5,7 @@ import be.me.eurder.domain.pojos.user.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -43,5 +44,7 @@ public class UserData {
         }
         return null;
     }
+
+
 
 }

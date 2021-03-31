@@ -44,5 +44,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         response.sendError(exception.getStatus().value(), "Only admins are allowed to do this");
     }
 
+    @ExceptionHandler(NotFoundInDatabaseException.class)
+    protected void NotFoundInDatabaseExceptionValidator(NotFoundInDatabaseException exception,
+                                                        HttpServletResponse response) throws IOException{
+        logger.error(exception.getMessage(), exception);
+        response.sendError(exception.getStatus().value(), exception.getMessage());
+    }
+
 
 }

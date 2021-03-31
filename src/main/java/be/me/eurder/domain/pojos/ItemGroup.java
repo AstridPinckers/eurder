@@ -26,5 +26,21 @@ public class ItemGroup {
         return ItemData.getItemById(itemId).getAmount() - amount >= 0;
     }
 
+    public UUID getItemId() {
+        return itemId;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public Price getPrice() {
+        return price;
+    }
+
+    public LocalDate getShippingDate() {
+        return shippingDate;
+    }
+
 
 }

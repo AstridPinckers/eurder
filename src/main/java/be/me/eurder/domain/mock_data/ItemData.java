@@ -2,6 +2,7 @@ package be.me.eurder.domain.mock_data;
 
 import be.me.eurder.domain.ItemValidation;
 import be.me.eurder.domain.pojos.Item;
+import be.me.eurder.domain.pojos.Price;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,7 +11,9 @@ import java.util.UUID;
 
 public class ItemData {
 
-    private static List<Item> itemList = new ArrayList<>(List.of());
+    private static List<Item> itemList = new ArrayList<>(List.of(
+            new Item("Chocolate", "Milk chocolate with sea salt and caramel", Price.priceInEuros(1.6),10)
+    ));
 
     public static List<Item> getItemList() {
         return itemList;
