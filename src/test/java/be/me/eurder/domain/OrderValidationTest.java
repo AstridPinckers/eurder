@@ -85,7 +85,6 @@ class OrderValidationTest {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 ()-> OrderValidation.assertValidOrder(order));
         assertEquals("The minimum order amount per item is one",exception.getMessage());
-        // illegalArgument();
     }
 
     @Test

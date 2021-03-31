@@ -1,6 +1,7 @@
 package be.me.eurder.domain.pojos;
 
 import be.me.eurder.domain.mock_data.ItemData;
+import be.me.eurder.infrastructure.exceptions.NotFoundInDatabaseException;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -17,13 +18,21 @@ public class ItemGroup {
         id = UUID.randomUUID();
         this.itemId = itemId;
         this.amount = amount;
-        price = ItemData.getItemById(itemId).getPrice();
+        price = getItemById(itemId).getPrice();
         shippingDate = isInStock() ? LocalDate.now().plusDays(1) :
                 LocalDate.now().plusDays(7);
     }
 
+    private Item getItemById(UUID itemId) {
+        Item item =  ItemData.getItemById(itemId);
+        if(item==null){
+            throw new NotFoundInDatabaseException("item");
+        }
+        return item;
+    }
+
     private boolean isInStock() {
-        return ItemData.getItemById(itemId).getAmount() - amount >= 0;
+        return getItemById(itemId).getAmount() - amount >= 0;
     }
 
     public UUID getItemId() {
