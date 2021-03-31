@@ -11,7 +11,6 @@ import be.me.eurder.domain.pojos.user.Customer;
 import be.me.eurder.infrastructure.exceptions.NotFoundInDatabaseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Or;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -19,7 +18,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class OrderValidationTest {
 
@@ -89,8 +89,8 @@ class OrderValidationTest {
 
     @Test
     void assertValidOrder_ItemNotInDatabase() {
-        fail();
-        //throw new NotFoundInDatabaseException("item");
+        Item item = new Item(VALID_STRING,VALID_STRING,Price.priceInEuros(20),10);
+        assertThrows(NotFoundInDatabaseException.class, ()-> new ItemGroup(item.getUuid(),1));
     }
 
 }
