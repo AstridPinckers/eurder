@@ -1,9 +1,9 @@
-package be.me.eurder.application;
+package be.me.eurder;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "be.me.eurder")
+@SpringBootApplication
 public class EurderApplication {
 
     public static void main(String[] args) {

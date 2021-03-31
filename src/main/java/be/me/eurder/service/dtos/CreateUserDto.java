@@ -1,6 +1,6 @@
 package be.me.eurder.service.dtos;
 
-import be.me.eurder.domain.pojos.User.Address;
+import be.me.eurder.domain.pojos.user.Address;
 
 public class CreateUserDto {
 
@@ -11,7 +11,7 @@ public class CreateUserDto {
     private String addressLine;
     private String postalCode;
     private String city;
-    private String password;
+    private String rawPassword;
 
     public CreateUserDto setFirstName(String firstName) {
         this.firstName = firstName;
@@ -40,8 +40,8 @@ public class CreateUserDto {
         return this;
     }
 
-    public CreateUserDto setPassword(String password) {
-        this.password = password;
+    public CreateUserDto setRawPassword(String rawPassword) {
+        this.rawPassword = rawPassword;
         return this;
     }
 
@@ -73,7 +73,7 @@ public class CreateUserDto {
         return city;
     }
 
-    public String getPassword() {
-        return password;
+    public String getRawPassword() {
+        return rawPassword;
     }
 }

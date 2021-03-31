@@ -1,4 +1,4 @@
-package be.me.eurder.domain.pojos.User;
+package be.me.eurder.domain.pojos.user;
 
 public class Customer extends User {
 

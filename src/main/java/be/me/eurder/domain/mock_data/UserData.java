@@ -1,7 +1,7 @@
 package be.me.eurder.domain.mock_data;
 
 import be.me.eurder.domain.UserValidation;
-import be.me.eurder.domain.pojos.User.*;
+import be.me.eurder.domain.pojos.user.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,4 +34,14 @@ public class UserData {
         userList.add(customer);
         return customer;
     }
+
+    public static User getUserByEmail(String email){
+        for(User user: userList){
+            if(user.getEmail().equals(email)){
+                return user;
+            }
+        }
+        return null;
+    }
+
 }

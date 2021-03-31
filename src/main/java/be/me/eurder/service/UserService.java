@@ -1,6 +1,6 @@
 package be.me.eurder.service;
 
-import be.me.eurder.domain.pojos.User.User;
+import be.me.eurder.domain.pojos.user.User;
 import be.me.eurder.domain.repositories.UserRepository;
 import be.me.eurder.service.dtos.CreateUserDto;
 import be.me.eurder.service.dtos.ReceiveUserDto;

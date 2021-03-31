@@ -1,8 +1,8 @@
 package be.me.eurder.service.mappers;
 
-import be.me.eurder.domain.pojos.User.Address;
-import be.me.eurder.domain.pojos.User.Customer;
-import be.me.eurder.domain.pojos.User.User;
+import be.me.eurder.domain.pojos.user.Address;
+import be.me.eurder.domain.pojos.user.Customer;
+import be.me.eurder.domain.pojos.user.User;
 import be.me.eurder.service.dtos.*;
 
 public class UserMapper {
@@ -11,7 +11,7 @@ public class UserMapper {
         Address address = new Address(createUserDto.getAddressLine(),createUserDto.getPostalCode(),
                 createUserDto.getCity());
         return new Customer(createUserDto.getFirstName(),createUserDto.getLastName(), createUserDto.getEmail(),
-                address, createUserDto.getPhoneNumber(), createUserDto.getPassword());
+                address, createUserDto.getPhoneNumber(), createUserDto.getRawPassword());
     }
 
     public static ReceiveUserDto user_to_ReceiveUserDto(User user){

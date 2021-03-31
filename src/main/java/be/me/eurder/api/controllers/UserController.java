@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -26,6 +28,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public ReceiveUserDto createMember(@RequestBody CreateUserDto createCustomerDto) {
         logger.info("Attempt to create new customer");
+
         return userService.createCustomer(createCustomerDto);
     }
 

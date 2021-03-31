@@ -1,4 +1,4 @@
-package be.me.eurder.application;
+package be.me.eurder;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

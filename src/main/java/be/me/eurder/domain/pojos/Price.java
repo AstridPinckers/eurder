@@ -8,7 +8,7 @@ public class Price {
         this.currency = currency;
         this.value = value;
     }
-    public Price priceInEuros(double value){
+    public static Price priceInEuros(double value){
         return new Price("EUR",value);
     }
 

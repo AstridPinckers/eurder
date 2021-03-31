@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ItemData {
 
@@ -19,6 +20,15 @@ public class ItemData {
         ItemValidation.assertValidItem(item);
         itemList.add(item);
         return item;
+    }
+
+    public static Item getItemById(UUID id){
+        for (Item item : itemList){
+            if (item.getUuid().equals(id)){
+                return item;
+            }
+        }
+        return null;
     }
 
 }

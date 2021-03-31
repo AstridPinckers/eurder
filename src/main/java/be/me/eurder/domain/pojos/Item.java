@@ -33,4 +33,8 @@ public class Item {
     public int getAmount() {
         return amount;
     }
+
+    public UUID getUuid() {
+        return uuid;
+    }
 }

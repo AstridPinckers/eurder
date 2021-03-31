@@ -1,4 +1,4 @@
-package be.me.eurder.domain.pojos.User;
+package be.me.eurder.domain.pojos.user;
 
 public class Address {
     private final String addressLine;

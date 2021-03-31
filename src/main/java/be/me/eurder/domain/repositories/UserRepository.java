@@ -1,9 +1,8 @@
 package be.me.eurder.domain.repositories;
 
 import be.me.eurder.domain.mock_data.UserData;
-import be.me.eurder.domain.pojos.User.Customer;
-import be.me.eurder.domain.pojos.User.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import be.me.eurder.domain.pojos.user.Customer;
+import be.me.eurder.domain.pojos.user.User;
 import org.springframework.stereotype.Component;
 
 

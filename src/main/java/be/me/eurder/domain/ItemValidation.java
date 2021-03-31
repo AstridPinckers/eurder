@@ -1,7 +1,6 @@
 package be.me.eurder.domain;
 
 import be.me.eurder.domain.pojos.Item;
-import be.me.eurder.domain.pojos.User.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

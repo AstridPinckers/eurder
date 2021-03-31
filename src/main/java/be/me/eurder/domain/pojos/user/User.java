@@ -1,6 +1,6 @@
-package be.me.eurder.domain.pojos.User;
+package be.me.eurder.domain.pojos.user;
 
-import be.me.eurder.domain.PassWordEncryption;
+import be.me.eurder.infrastructure.PassWordEncryption;
 
 import java.util.UUID;
 
@@ -12,7 +12,7 @@ public abstract class User {
     private Address address;
     private String phoneNumber;
     private String encryptedPassword;
-    private UUID salt;
+    private byte[] salt;
 
     public User(String firstName, String lastName, String email, Address address, String phoneNumber,
                 String rawPassword) {
@@ -47,8 +47,20 @@ public abstract class User {
         return phoneNumber;
     }
 
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
     public void setEncryptedPassword(String rawPassword) {
-        this.salt = UUID.randomUUID();
+        this.salt = PassWordEncryption.getSalt();
         this.encryptedPassword = PassWordEncryption.generateEncryptedPassword(rawPassword,salt);
     }
 }

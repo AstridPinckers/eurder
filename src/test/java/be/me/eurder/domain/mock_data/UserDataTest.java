@@ -1,10 +1,10 @@
 package be.me.eurder.domain.mock_data;
 
 import be.me.eurder.domain.UserValidation;
-import be.me.eurder.domain.pojos.User.Address;
-import be.me.eurder.domain.pojos.User.Admin;
-import be.me.eurder.domain.pojos.User.Customer;
-import be.me.eurder.domain.pojos.User.User;
+import be.me.eurder.domain.pojos.user.Address;
+import be.me.eurder.domain.pojos.user.Admin;
+import be.me.eurder.domain.pojos.user.Customer;
+import be.me.eurder.domain.pojos.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -36,6 +36,12 @@ class UserDataTest {
         reader = UserData.class.getDeclaredField("userList");
         reader.setAccessible(true);
         reader.set(userData, new ArrayList<>(List.of(testCustomer, testAdmin)));
+
+        UserValidation userValidation = new UserValidation();
+        Field validationReader;
+        validationReader = UserValidation.class.getDeclaredField("userList");
+        validationReader.setAccessible(true);
+        validationReader.set(userValidation, new ArrayList<>(List.of(testCustomer, testAdmin)));
     }
 
     @Test
@@ -90,11 +96,7 @@ class UserDataTest {
                 "@yahoo..com", "username@yahoo.c",
                 "username@yahoo.corporate", "abc@test.com", "admin@test.te"})
         void addCustomerWithInvalidEmail(String string) throws Exception {
-            UserValidation userValidation = new UserValidation();
-            Field validationReader;
-            validationReader = UserValidation.class.getDeclaredField("userList");
-            validationReader.setAccessible(true);
-            validationReader.set(userValidation, new ArrayList<>(List.of(testCustomer, testAdmin)));
+
             Customer customer = new Customer(VALID_STRING, VALID_STRING, string, VALID_ADDRESS, VALID_PHONE, RAW_PASSWORD);
             assertThrows(IllegalArgumentException.class, () -> userData.addCustomer(customer));
         }
@@ -190,6 +192,17 @@ class UserDataTest {
                 assertEquals("Invalid email address",exception.getMessage());
             }
         }
+    }
+    @ParameterizedTest
+    @ValueSource(strings = {"admin@test.te", "abc@test.com"})
+    void getUserByEmail_existingEmail(String string){
+        assertNotNull(userData.getUserByEmail(string));
+        assertNotNull(userData.getUserByEmail(string));
+    }
+
+    @Test
+    void getUserByEmail_emailDoesNotExist(){
+        assertNull(userData.getUserByEmail("doesnotexist@test.be"));
     }
 
 
