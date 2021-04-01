@@ -7,6 +7,7 @@ import be.me.eurder.domain.pojos.user.Admin;
 import be.me.eurder.domain.pojos.user.Customer;
 import be.me.eurder.infrastructure.exceptions.AdminPermissionException;
 import be.me.eurder.infrastructure.exceptions.InvalidCredentialsException;
+import be.me.eurder.service.SecurityService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

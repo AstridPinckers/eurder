@@ -2,11 +2,17 @@ package be.me.eurder.service.dtos;
 
 public class ReceiveItemDto {
 
+    private String id;
     private String name;
     private String description;
     private double price;
     private int amount;
     private String currency;
+
+    public ReceiveItemDto setId(String id) {
+        this.id = id;
+        return this;
+    }
 
     public ReceiveItemDto setName(String name){
         this.name = name;
@@ -50,5 +56,9 @@ public class ReceiveItemDto {
 
     public String getCurrency() {
         return currency;
+    }
+
+    public String getId() {
+        return id;
     }
 }

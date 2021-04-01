@@ -2,6 +2,7 @@ package be.me.eurder.domain.pojos.user;
 
 import be.me.eurder.infrastructure.PassWordEncryption;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public abstract class User {
@@ -62,5 +63,18 @@ public abstract class User {
     public void setEncryptedPassword(String rawPassword) {
         this.salt = PassWordEncryption.getSalt();
         this.encryptedPassword = PassWordEncryption.generateEncryptedPassword(rawPassword,salt);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return email.equals(user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
     }
 }

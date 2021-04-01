@@ -14,4 +14,13 @@ public class Customer extends User {
     public String getRole() {
         return ROLE;
     }
+
+    public static Customer returnCustomerOrThrowException(User user) {
+        if (!user.getRole().equals(ROLE)) {
+            throw new IllegalArgumentException("Not a customer");
+        }
+        return (Customer) user;
+    }
+
+
 }

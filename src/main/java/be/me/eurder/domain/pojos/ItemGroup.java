@@ -23,7 +23,7 @@ public class ItemGroup {
                 LocalDate.now().plusDays(7);
     }
 
-    private Item getItemById(UUID itemId) {
+    public static Item getItemById(UUID itemId) {
         Item item =  ItemData.getItemById(itemId);
         if(item==null){
             throw new NotFoundInDatabaseException("item");

@@ -18,6 +18,7 @@ public class ItemMapper {
                 .setDescription(item.getDescription())
                 .setAmount(item.getAmount())
                 .setCurrency(item.getPrice().getCurrency())
-                .setPrice(item.getPrice().getValue());
+                .setPrice(item.getPrice().getValue())
+                .setId(item.getUuid().toString());
     }
 }

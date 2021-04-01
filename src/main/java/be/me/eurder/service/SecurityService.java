@@ -1,4 +1,4 @@
-package be.me.eurder.service.mappers;
+package be.me.eurder.service;
 
 import be.me.eurder.domain.UserValidation;
 import be.me.eurder.domain.pojos.user.*;
