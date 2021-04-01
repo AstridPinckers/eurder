@@ -17,4 +17,13 @@ public class ItemRepository {
     public List<Item> getAllItems(){
         return ItemData.getItemList();
     }
+
+    public List<Item> getItemsOfUrgency(String urgency){
+        switch (urgency.toUpperCase()){
+            case "LOW": return ItemData.getItemsInLowSupply();
+            case "MEDIUM": return ItemData.getItemsInMediumSupply();
+            case "HIGH": return ItemData.getItemsInHighSupply();
+            default: return null;
+        }
+    }
 }

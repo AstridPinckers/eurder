@@ -1,5 +1,6 @@
 package be.me.eurder.api.controllers;
 
+import be.me.eurder.infrastructure.exceptions.NotAValidUrgencyException;
 import be.me.eurder.service.ItemService;
 import be.me.eurder.service.dtos.CreateItemDto;
 import be.me.eurder.service.dtos.ReceiveItemDto;
@@ -30,9 +31,20 @@ public class ItemController {
 
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<ReceiveItemDto> getAllItems(){
+    public List<ReceiveItemDto> getAllItems() {
         logger.info("Item list requested");
         return itemService.getAllItems();
+    }
+
+    @GetMapping(path = "/{urgency}", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ReceiveItemDto> getItemsByUrgency(@PathVariable String urgency) {
+        logger.info("Item list requested");
+        List<ReceiveItemDto> result = itemService.getItemsByUrgency(urgency);
+        if (result == null) {
+            throw new NotAValidUrgencyException(urgency+" is not a valid urgency");
+        }
+        return result;
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")

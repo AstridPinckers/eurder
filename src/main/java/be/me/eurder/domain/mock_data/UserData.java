@@ -23,11 +23,11 @@ public class UserData {
     }
 
     public static List<User> getAdminList() {
-        return userList.stream().collect(groupingBy(User::getRole, Collectors.toList())).get("admin");
+        return userList.stream().filter(user -> Admin.isAdmin(user)).collect(Collectors.toList());
     }
 
     public static List<User> getCustomerList() {
-        return userList.stream().collect(groupingBy(User::getRole, Collectors.toList())).get("customer");
+        return userList.stream().filter(user -> user.getRole().equals("customer")).collect(Collectors.toList());
     }
 
     public static Customer addCustomer(Customer customer){

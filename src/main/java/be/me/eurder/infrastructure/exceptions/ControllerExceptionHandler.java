@@ -51,5 +51,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         response.sendError(exception.getStatus().value(), exception.getMessage());
     }
 
+    @ExceptionHandler(NotAValidUrgencyException.class)
+    protected void NotAValidUrgencyExceptionValidator(NotAValidUrgencyException exception,
+                                                      HttpServletResponse response) throws IOException{
+        logger.error("A non existing urgency level was used",exception);
+        response.sendError(exception.getStatus().value(), exception.getMessage());
+    }
+
 
 }

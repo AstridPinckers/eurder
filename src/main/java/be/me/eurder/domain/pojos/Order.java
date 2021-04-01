@@ -25,4 +25,8 @@ public class Order {
     public Set<ItemGroup> getItemGroupSet() {
         return itemGroupSet;
     }
+
+    public UUID getUuid() {
+        return uuid;
+    }
 }

@@ -32,4 +32,8 @@ public class ItemService {
     public List<ReceiveItemDto> getAllItems() {
         return itemRepository.getAllItems().stream().map(ItemMapper::item_to_ReceiveItemDto).collect(Collectors.toList());
     }
+
+    public List<ReceiveItemDto> getItemsByUrgency(String urgency){
+        return itemRepository.getItemsOfUrgency(urgency).stream().map(ItemMapper::item_to_ReceiveItemDto).collect(Collectors.toList());
+    }
 }
